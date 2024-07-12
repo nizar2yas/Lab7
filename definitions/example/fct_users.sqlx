@@ -1,0 +1,26 @@
+config {
+    type: "incremental",
+    description: "Adultes users table",
+    columns: docs.users_doc,
+    tags: [constants.fact_label],
+    bigquery: {
+        labels: {
+            "type": constants.fact_label
+        },
+        partitionBy: "DATE(update_timestamp)",
+        requirePartitionFilter: true,
+        clusterBy: ["gender"]
+    },
+    dependencies: ["adultes_users_assertion", "labs_stg_users_assertions_rowConditions", "labs_stg_users_assertions_uniqueKey_0"]
+}
+
+SELECT
+  *
+FROM
+  ${ref("stg_users")}
+  ${
+      when(incremental(),
+          `WHERE TIMESTAMP_TRUNC(update_timestamp, DAY) >= TIMESTAMP_SUB(current_timestamp(), INTERVAL 1 DAY)`,
+          `WHERE TIMESTAMP_TRUNC(update_timestamp, DAY) > timestamp("1970-01-01")`
+      )
+  }

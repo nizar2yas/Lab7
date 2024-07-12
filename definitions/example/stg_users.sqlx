@@ -1,0 +1,39 @@
+config {
+    type: "table",
+    description: "Adultes users table",
+    columns: docs.users_doc,
+    tags: [constants.staging_label],
+    bigquery: {
+        labels: {
+            "type": constants.staging_label
+        },
+        partitionBy: "Date(update_timestamp)",
+        clusterBy: ["gender"]
+    },
+    assertions: {
+        nonNull: ["id"],
+        uniqueKey: ["id"],
+        //uniqueKeys:[["id"],["first_name","last_name"]],
+        rowConditions: ['gender in ("Female","Agender","Male")']
+    }
+}
+
+with cte as(SELECT
+  CAST(id AS INT64) AS id,
+  CAST(first_name AS String) AS first_name,
+  CAST(last_name AS String) AS last_name,
+  CAST(email AS String) AS email,
+  CAST(gender AS String) AS gender,
+  CAST(birth_date AS date) AS birth_date,
+  CAST(creation_timestamp AS timestamp) AS creation_timestamp,
+  CAST(update_timestamp AS timestamp) AS update_timestamp,
+FROM
+  ${ref("users")})
+
+${commons.deduplicate({
+    relation: cte,
+    partition_by: 'id'
+})}
+
+
+

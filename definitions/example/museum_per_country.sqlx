@@ -1,0 +1,12 @@
+config {
+    type: "view",
+    materialized: true
+}
+
+SELECT
+  departement,
+  COUNT(*) AS number_of_museum
+FROM
+  ${ref("stg_museum")}
+GROUP BY
+  departement

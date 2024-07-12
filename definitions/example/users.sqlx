@@ -1,0 +1,5 @@
+config {
+    type: "declaration",
+    database: "dataform-training-429018",
+    schema: "input_data"
+}
