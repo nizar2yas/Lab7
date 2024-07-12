@@ -11,7 +11,7 @@ config {
         requirePartitionFilter: true,
         clusterBy: ["gender"]
     },
-    dependencies: ["adultes_users_assertion", "labs_stg_users_assertions_rowConditions", "labs_stg_users_assertions_uniqueKey_0"]
+    //dependencies: ["adultes_users_assertion", "labs_stg_users_assertions_rowConditions", "labs_stg_users_assertions_uniqueKey_0"]
 }
 
 SELECT

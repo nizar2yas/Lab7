@@ -1,4 +1,9 @@
-const staging_label="STAGING"
-const fact_label="FACT"
+const staging_label = "staging";
+const fact_label = "fact";
+const assertion_label="assertion"
 
-module.exports={staging_label,fact_label}
+module.exports = {
+    staging_label,
+    fact_label,
+    assertion_label
+}
