@@ -18,22 +18,22 @@ config {
     }
 }
 
-with cte as(SELECT
-  CAST(id AS INT64) AS id,
-  CAST(first_name AS String) AS first_name,
-  CAST(last_name AS String) AS last_name,
-  CAST(email AS String) AS email,
-  CAST(gender AS String) AS gender,
-  CAST(birth_date AS date) AS birth_date,
-  CAST(creation_timestamp AS timestamp) AS creation_timestamp,
-  CAST(update_timestamp AS timestamp) AS update_timestamp,
-FROM
-  ${ref("users")})
-
-${commons.deduplicate({
-    relation: cte,
-    partition_by: 'id'
-})}
-
-
-
+WITH
+  cte AS(
+  SELECT
+    CAST(id AS INT64) AS id,
+    CAST(first_name AS String) AS first_name,
+    CAST(last_name AS String) AS last_name,
+    CAST(email AS String) AS email,
+    CAST(gender AS String) AS gender,
+    CAST(birth_date AS date) AS birth_date,
+    CAST(creation_timestamp AS timestamp) AS creation_timestamp,
+    CAST(update_timestamp AS timestamp) AS update_timestamp,
+  FROM
+    ${ref("users")})
+    ${
+        commons.deduplicate({
+            relation: 'cte',
+            partition_by: 'id'
+        })
+    }
