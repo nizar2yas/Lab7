@@ -1,9 +1,10 @@
 config {
-    type: "assertion"
+    type: "assertion",
+    tags: [constants.assertion_label],
 }
 
 SELECT
-  "user not adulte" as failing_row_condition,
+  "user not adulte" AS failing_row_condition,
   *
 FROM
   ${ref("stg_users")}

@@ -1,15 +1,15 @@
-const users_doc={
+const users_doc = {
     id: "User's identifier",
-        first_name: "User's first name",
-        last_name: "User's last name",
-        email: "User's email",
-        gender: "User's gender",
-        birth_date: "User's birth date",
-        creation_timestamp: "Users's creation timestamp",
-        update_timestamp: "Users's data update timestamp"
+    first_name: "User's first name",
+    last_name: "User's last name",
+    email: "User's email",
+    gender: "User's gender",
+    birth_date: "User's birth date",
+    creation_timestamp: "Users's creation timestamp",
+    update_timestamp: "Users's data update timestamp"
 };
 
-const museum_doc={
+const museum_doc = {
     identifiant_musee: "museum identifier",
     region_administrative: "museum administrative region",
     departement: "museum department",
@@ -25,4 +25,7 @@ const museum_doc={
     ref_deps: "reference deps"
 };
 
-module.exports={museum_doc,users_doc};
+module.exports = {
+    museum_doc,
+    users_doc
+};
