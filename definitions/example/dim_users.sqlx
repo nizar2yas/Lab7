@@ -1,0 +1,11 @@
+config {
+    type: "table"
+}
+
+  ${
+      commons.deduplicate({
+          relation: ref('stg_users'),
+          partition_by: 'id',
+          order_by: 'creation_timestamp desc'
+      })
+  }
